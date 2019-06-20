@@ -62,14 +62,17 @@ var Singature = (function () {
             //开始绘制
             this.canvas.addEventListener("touchstart", function (e) {
                 this.start(e);
+                e.preventDefault();
             }.bind(this), false);
             //绘制中
             this.canvas.addEventListener("touchmove", function (e) {
                 this.move(e);
+                e.preventDefault();
             }.bind(this), false);
             //结束绘制
             this.canvas.addEventListener("touchend", function (e) {
                 this.end(e);
+                e.preventDefault();
             }.bind(this), false);
 
             //PC
