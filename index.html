@@ -11,29 +11,50 @@
             height: 100%;
             background-color: azure;
         }
+
+        #clear {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
+
+        #save {
+            position: absolute;
+            top: 5px;
+            left: 65px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="signatrue-container">
+    <div id="signatrue-container"></div>
 
-    </div>
+    <button id="clear" onclick="clearContent();">清除</button>
+    <button id="save" onclick="saveToBase64();">导出base64</button>
 </body>
 <script src="src/singature.js"></script>
+<script src="data.js"></script>
 <script>
     window.onload = function () {
         //创建实例
         singature = new Singature({
-            el: document.getElementById("signatrue-container"),//绘制canvas的父级div
             // linewidth: 1,//线条粗细，选填
             // color: "black",//线条颜色，选填
             // background: "#ffffff"//线条背景，选填
+            // readOnly:true,//只读模式
+            el: document.getElementById("signatrue-container"),//绘制canvas的父级div
+            //保存base64数据格式转换
             saveToBase64Conver: function (base64) {
                 return (base64 || "").replace(/data:image\/png;base64,/, "base64|png|");
-            }
+            },
+            //读取base64数据格式转换
+            displayToBase64Conver: function (base64) {
+                return (base64 || "").replace(/base64\|png\|/, "data:image/png;base64,");
+            },
+            base64Image: base64
         });
 
-        clear = function () {
+        clearContent = function () {
             //清空
             singature.clear();
         }
@@ -42,6 +63,8 @@
             //获取Image base64
             console.log(singature.saveToBase64());
         }
+
+
 
     };
 </script>
